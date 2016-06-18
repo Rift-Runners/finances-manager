@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="financeApp">
+    <head>
+        <title>Todo test</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
+
+        <!-- Compressed JavaScript -->
+        <script src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.foundation.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.foundation.min.css"/>
+        <link rel="stylesheet" href="resources/todo.css">
+    </head>
+    <body>
+<!--                <h2>Todo</h2>
+                <div ng-controller="TodoListController as todoList">
+                    <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+                    [ <a href="" ng-click="todoList.archive()">archive</a> ]
+                    <ul class="unstyled">
+                        <li ng-repeat="todo in todoList.todos">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="todo.done">
+                                <span class="done-{{todo.done}}">{{todo.text}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                    <form ng-submit="todoList.addTodo()">
+                        <input type="text" ng-model="todoList.todoText"  size="30"
+                               placeholder="add new todo here">
+                        <input class="btn-primary" type="submit" value="add">
+                    </form>
+                </div>-->
+        <div class="expanded row">
+            <div class="small-12 medium-5 large-5 columns">
+                <h2>Credit</h2>
+                <form>
+                    <div class="expanded row">
+                        <div class="medium-12 columns">
+                            <label>Value
+                                <input type="text" placeholder="Credit Value">
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <label>Type <a style="border-radius: 20px;" class="success button">Add Type</a>
+                                <select>
+                                    <option value=""></option>
+                                    <option value="Salary">Salary</option>
+                                    <option value="Beach house rent">Beach house rent</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <a class="expanded success hollow button" href="#">SAVE</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="small-12 medium-offset-2 medium-5 large-offset-2 large-5 columns">
+                <h2>Debit</h2>
+                <form>
+                    <div class="expanded row">
+                        <div class="medium-12 columns">
+                            <label>Value
+                                <input type="text" placeholder="Debit Value">
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <label>Type <a style="border-radius: 20px;" class="success button">Add Type</a>
+                                <select>
+                                    <option value=""></option>
+                                    <option value="Food">Food</option>
+                                    <option value="Rent">Rent</option>
+                                    <option value="Gym">Gym</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <label>Payable until
+                                <input type="date">
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <p>Already Paid?</p>
+                            <div class="switch large">
+                                <input class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
+                                <label class="switch-paddle" for="yes-no">
+                                    <span class="show-for-sr">Already Paid?</span>
+                                    <span class="switch-active" aria-hidden="true">Yes</span>
+                                    <span class="switch-inactive" aria-hidden="true">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="medium-12 columns">
+                            <a class="expanded success hollow button" href="#">SAVE</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="small-12 medium-12 large-12 columns">
+                <h2>Finances</h2>
+                <table ng-controller="FinancesController" id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Subject</th> <!-- Group that it belongs (in its respective type) -->
+                            <th>Type</th> <!-- Credit/Debit -->
+                            <th>Value</th>
+                            <th>Paid</th> <!-- If the Debit is already paid (YES/NO)-->
+                            <th>File</th> <!-- If it has a file associated with it -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="finance in finances">
+                            <td>{{finance.name}}</td>
+                            <td>{{finance.subject}}</td>
+                            <td>{{finance.type}}</td>
+                            <td>R$ {{finance.value}}</td>
+                            <td>{{finance.paid}}</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script type="text/javascript" src="resources/todo.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.foundation.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+    </body>
+</html>
+
