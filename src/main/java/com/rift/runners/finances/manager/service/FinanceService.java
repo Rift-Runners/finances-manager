@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class FinanceService {
 
-    @PersistenceContext
+    @PersistenceContext(name = "financesPU")
     private EntityManager em;
 
     public void save(Finance finance) {
