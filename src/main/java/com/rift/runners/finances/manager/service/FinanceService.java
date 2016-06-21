@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class FinanceService {
 
-    @PersistenceContext(unitName = "financesPU")
+    @PersistenceContext
     private EntityManager em;
 
     public void save(Finance finance) {
@@ -26,7 +26,7 @@ public class FinanceService {
     }
 
     public void listAll() {
-         List<Object> unparsedFinances = em.createNativeQuery("SELECT f.name, f.subject, f.type, f.finance_value, f.paid FROM finances ")
+         List<Object> unparsedFinances = em.createNativeQuery("SELECT * FROM finances ")
                 .getResultList();
     }
 }

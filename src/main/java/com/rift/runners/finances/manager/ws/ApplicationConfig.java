@@ -29,7 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.rift.runners.finances.ws.FinancesResource.class);
+        resources.add(com.rift.runners.finances.manager.ws.FinancesResource.class);
     }
     
 }

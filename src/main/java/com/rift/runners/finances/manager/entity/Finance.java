@@ -37,7 +37,8 @@ public class Finance implements Serializable {
     public Finance() {
     }
 
-    public Finance(String name, String subject, String type, Double financeValue, Boolean paid) {
+    public Finance(Long id, String name, String subject, String type, Double financeValue, Boolean paid) {
+        this.id = id;
         this.name = name;
         this.subject = subject;
         this.type = type;
