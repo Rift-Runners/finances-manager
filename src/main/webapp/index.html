@@ -15,15 +15,12 @@
         <div class="expanded row">
             <div class="medium-12 columns">
                 <p>Choose type</p>
-                <div class="switch large">
-                    <input  ng-init="transaction.type = false" ng-model="transaction.type" class="switch-input" id="yes-no" type="checkbox" name="transactionType">
-                    <label class="switch-paddle" for="yes-no">
-                        <span class="show-for-sr">Choose type</span>
-                        <span class="switch-active" aria-hidden="true">Debit</span>
-                        <span class="switch-inactive" aria-hidden="true">Credit</span>
-                    </label>
-                </div>
-            </div>     
+                <div class="switch large" ng-model="transaction.type" name="transactionType">
+                    <button ng-init="transaction.type = true" class="expanded success hollow button" ng-click="transaction.type = true" ng-disabled="transaction.type"/>Debit</button>
+                    <button class="expanded success hollow button" ng-click="transaction.type = credit" ng-disabled="!transaction.type"/>Credit</button>
+                </div>   
+            </div>   
+
             <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns" ng-if="!transaction.type">
                 <h2>Credit</h2>
                 <form>
