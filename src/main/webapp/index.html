@@ -39,28 +39,28 @@
             </div>
             <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns">
                 <h2>Debit</h2>
-                <form>
+                <form name="debitForm">
                     <div class="expanded row">
                         <div class="medium-12 columns">
                             <label>Name
-                                <input ng-model="finance.name" type="text" placeholder="Name">
+                                <input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
                             </label>
                         </div>
                         <div class="medium-12 columns">
                             <label>Value
-                                <input ng-model="finance.financeValue" type="number" placeholder="Debit Value">
+                                <input ng-model="finance.financeValue" type="number" placeholder="Debit Value" ng-required="true">
                             </label>
                         </div>
                         <div class="medium-12 columns">
                             <label>Subject <a style="border-radius: 20px;" href="#modal" class="success button">Add Subject</a>
-                                <select ng-options="subject.name for subject in subjects | orderBy: 'name'" ng-model="finance.subject">
+                                <select ng-options="subject.name for subject in subjects| orderBy: 'name'" ng-model="finance.subject" ng-required="true">
                                     <option value="">Pick a subject</option>
                                 </select>
                             </label>
                         </div>
                         <div class="medium-12 columns">
                             <label>Payable until
-                                <input type="date">
+                                <input type="date" ng-required="true">
                             </label>
                         </div>
                         <div class="medium-12 columns">
@@ -73,28 +73,32 @@
                                     <span class="switch-inactive" aria-hidden="true">No</span>
                                 </label>
                             </div>
-                        </div>
-                        <div class="medium-12 columns">
-                            <a class="expanded success hollow button" ng-click="saveFinance(finance)">SAVE</a>
-                        </div>
+                        </div>     
                     </div>
                 </form>
+                <div class="medium-12 columns">
+                    <button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
+                </div>
             </div>
+
             <div class="small-12 medium-12 large-12 columns">
                 <h2>Finances</h2>
-                <table id="example" class="display" cellspacing="0" width="100%">
+                <input type="text" ng-model="orderBy" placeholder="Search"/>
+                <table ng-show="finances.length > 0" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Subject</th> <!-- Group that it belongs (in its respective type) -->
-                            <th>Type</th> <!-- Credit/Debit -->
-                            <th>Value</th>
-                            <th>Paid</th> <!-- If the Debit is already paid (YES/NO)-->
-                            <th>File</th> <!-- If it has a file associated with it -->
+                            <th></th>
+                            <th><a href="" ng-click="orderBy('name')">Name</a></th>
+                            <th><a href="" ng-click="orderBy('subject.name')">Subject</a></th> <!-- Group that it belongs (in its respective type) -->
+                            <th><a href="" ng-click="orderBy('type')">Type</a></th> <!-- Credit/Debit -->
+                            <th><a href="" ng-click="orderBy('financeValue')">Value</a></th>
+                            <th><a href="" ng-click="orderBy('paid')">Paid</a></th> <!-- If the Debit is already paid (YES/NO)-->
+                            <th><a href="" ng-click="orderBy('')">File</a></th> <!-- If it has a file associated with it -->            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="finance in finances">
+                        <tr ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
+                            <td><input type="checkbox" /></td>
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject.name}}</td>
                             <td>{{finance.type}}</td>
@@ -105,6 +109,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="remodal-bg">
                 <div class="remodal" data-remodal-id="modal">
                     <button data-remodal-action="close" class="remodal-close"></button>
@@ -131,11 +136,6 @@
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.foundation.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
-        <script>
-            $(function () {
-                $('#example').DataTable();
-            });
-        </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>

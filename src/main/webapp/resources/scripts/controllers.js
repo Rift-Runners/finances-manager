@@ -13,11 +13,17 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
 
             delete $scope.finance;
         };
-        
+
         $scope.saveSubject = function (subject) {
             SubjectsFactory.create(subject);
             $scope.subjects.push(angular.copy(subject));
 
             delete $scope.subject;
         };
+
+        $scope.orderBy = function (field) {
+            $scope.sortingRule = field;
+            $scope.sortingDirection = !$scope.sortingDirection;
+        };
+
     }]);
