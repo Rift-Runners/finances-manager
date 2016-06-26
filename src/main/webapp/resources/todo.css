@@ -2,9 +2,9 @@
     text-decoration: line-through;
     color: grey;
 }
-.selecionado {
+.selected {
     background-color: #3adb76;
 }
-.negrito {
+.bold {
     font-weight: bold;
 }

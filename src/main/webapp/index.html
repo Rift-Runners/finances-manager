@@ -97,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-class="{'selecionado negrito': finance.selected}"  ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
+                        <tr ng-class="{'selected bold': finance.selected}"  ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
                             <td><input type="checkbox" ng-model="finance.selected"/></td>
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject.name}}</td>
