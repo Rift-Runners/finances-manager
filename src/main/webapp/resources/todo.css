@@ -9,6 +9,16 @@
     font-weight: bold;
 }
 
-.buttonChoiceType{
+.buttonChoiceType {
     margin-top: 4%;
+}
+
+.buttonDebitCredit {
+    width: 25%;
+    border-radius: 4%;
+}
+
+.buttonSelected {
+    background-color: tomato !important;
+    color: black !important;
 }
