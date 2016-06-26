@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="resources/todo.css">
     </head>
     <body ng-controller="FinancesController" >
-        <!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER -->
-        <!-- https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson -->
         <div class="expanded row">
             <div class="small-12 medium-offset-4 medium-3 large-offset-4 large-3 columns buttonChoiceType">
                 <div class="switch large" ng-model="transaction.type" name="transactionType">
@@ -72,7 +70,7 @@
                         <div class="medium-12 columns">
                             <p>Already Paid?</p>
                             <div class="switch large">
-                                <input  ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
+                                <input ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
                                 <label class="switch-paddle" for="yes-no">
                                     <span class="show-for-sr">Already Paid?</span>
                                     <span class="switch-active" aria-hidden="true">Yes</span>
@@ -81,29 +79,29 @@
                             </div>
                         </div>     
                     </div>
+                    <div class="medium-12 columns">
+                        <button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
+                    </div>
                 </form>
-                <div class="medium-12 columns">
-                    <button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
-                </div>
             </div>
 
             <div class="small-12 medium-12 large-12 columns">
                 <h2>Finances</h2>
-                <input type="text" ng-model="orderBy" placeholder="Search"/>
+                <input type="text" ng-model="searchCriteria" placeholder="Search"/>
                 <table ng-show="finances.length > 0" class="table table-striped">
                     <thead>
                         <tr>
                             <th></th>
-                            <th><a href="" ng-click="orderBy('name')">Name</a></th>
-                            <th><a href="" ng-click="orderBy('subject.name')">Subject</a></th> <!-- Group that it belongs (in its respective type) -->
-                            <th><a href="" ng-click="orderBy('type')">Type</a></th> <!-- Credit/Debit -->
-                            <th><a href="" ng-click="orderBy('financeValue')">Value</a></th>
-                            <th><a href="" ng-click="orderBy('paid')">Paid</a></th> <!-- If the Debit is already paid (YES/NO)-->
-                            <th><a href="" ng-click="orderBy('')">File</a></th> <!-- If it has a file associated with it -->            
+                            <th><a href="" ng-click="orderByField('name')">Name</a></th>
+                            <th><a href="" ng-click="orderByField('subject.name')">Subject</a></th> <!-- Group that it belongs (in its respective type) -->
+                            <th><a href="" ng-click="orderByField('type')">Type</a></th> <!-- Credit/Debit -->
+                            <th><a href="" ng-click="orderByField('financeValue')">Value</a></th>
+                            <th><a href="" ng-click="orderByField('paid')">Paid</a></th> <!-- If the Debit is already paid (YES/NO)-->
+                            <th>File</th> <!-- If it has a file associated with it -->            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-class="{'selected bold': finance.selected}"  ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
+                        <tr ng-class="{'selected bold': finance.selected}"  ng-repeat="finance in finances| filter: searchCriteria | orderBy:sortingRule:sortingDirection">
                             <td><input type="checkbox" ng-model="finance.selected"/></td>
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject.name}}</td>
@@ -138,10 +136,6 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.foundation.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>

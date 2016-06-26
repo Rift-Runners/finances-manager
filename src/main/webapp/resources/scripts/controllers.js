@@ -5,12 +5,14 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
 
         $scope.finances = FinancesFactory.query();
         $scope.subjects = SubjectsFactory.query();
-
+        
         $scope.saveFinance = function (finance) {
             finance.type = 'Debit';
             FinancesFactory.create(finance);
             $scope.finances.push(angular.copy(finance));
-
+            
+            $scope.transaction.type = false;
+            $scope.transaction.type = true;
             delete $scope.finance;
         };
 
@@ -21,7 +23,7 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
             delete $scope.subject;
         };
 
-        $scope.orderBy = function (field) {
+        $scope.orderByField = function (field) {
             $scope.sortingRule = field;
             $scope.sortingDirection = !$scope.sortingDirection;
         };
