@@ -7,11 +7,14 @@ package com.rift.runners.finances.manager.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,14 +26,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "finances")
 @XmlRootElement
 public class Finance implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_finance")
     private Long id;
     private String name;
-    private String subject;
+    @ManyToOne
+    @JoinColumn(name = "id_subject")
+    private Subject subject;
     private String type;
     @Column(name = "finance_value")
     private Double financeValue;
@@ -39,7 +45,7 @@ public class Finance implements Serializable {
     public Finance() {
     }
 
-    public Finance(Long id, String name, String subject, String type, Double financeValue, Boolean paid) {
+    public Finance(Long id, String name, Subject subject, String type, Double financeValue, Boolean paid) {
         this.id = id;
         this.name = name;
         this.subject = subject;
@@ -64,11 +70,11 @@ public class Finance implements Serializable {
         this.name = name;
     }
 
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 
@@ -98,17 +104,21 @@ public class Finance implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.subject);
-        hash = 89 * hash + Objects.hashCode(this.type);
-        hash = 89 * hash + Objects.hashCode(this.financeValue);
-        hash = 89 * hash + Objects.hashCode(this.paid);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.subject);
+        hash = 41 * hash + Objects.hashCode(this.type);
+        hash = 41 * hash + Objects.hashCode(this.financeValue);
+        hash = 41 * hash + Objects.hashCode(this.paid);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -119,10 +129,13 @@ public class Finance implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.subject, other.subject)) {
+        if (!Objects.equals(this.type, other.type)) {
             return false;
         }
-        if (!Objects.equals(this.type, other.type)) {
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.subject, other.subject)) {
             return false;
         }
         if (!Objects.equals(this.financeValue, other.financeValue)) {

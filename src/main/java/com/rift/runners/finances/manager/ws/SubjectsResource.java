@@ -6,6 +6,7 @@
 package com.rift.runners.finances.manager.ws;
 
 import com.rift.runners.finances.manager.entity.Subject;
+import com.rift.runners.finances.manager.service.FinanceService;
 import com.rift.runners.finances.manager.service.SubjectService;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,9 +42,9 @@ public class SubjectsResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String insertSubject(Subject teste) {
+    public String insertSubject(Subject teste) {    
         subjectService.save(teste);
-        return "Subject Inserted";
+        return teste.getName();
     }
 
     /**
@@ -54,7 +55,7 @@ public class SubjectsResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Subject> getFinances() {
+    public List<Subject> getSubjects() {
         return subjectService.listAll();
     }
 }

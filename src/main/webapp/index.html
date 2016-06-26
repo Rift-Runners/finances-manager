@@ -96,7 +96,7 @@
                     <tbody>
                         <tr ng-repeat="finance in finances">
                             <td>{{finance.name}}</td>
-                            <td>{{finance.subject}}</td>
+                            <td>{{finance.subject.name}}</td>
                             <td>{{finance.type}}</td>
                             <td>R$ {{finance.financeValue}}</td>
                             <td>{{finance.paid}}</td>
@@ -132,9 +132,9 @@
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
         <script>
-                                        $(function () {
-                                            $('#example').DataTable();
-                                        });
+            $(function () {
+                $('#example').DataTable();
+            });
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>

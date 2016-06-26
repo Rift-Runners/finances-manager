@@ -10,8 +10,6 @@ import com.rift.runners.finances.manager.util.EMFactory;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -21,11 +19,11 @@ import org.codehaus.jettison.json.JSONObject;
 public class FinanceService {
 
     private final EMFactory emf = EMFactory.getInstance();
-    
-    public FinanceService(){
-        
+
+    public FinanceService() {
+
     }
-    
+
     public void save(Finance finance) {
         final EntityManager em = emf.createManager();
         em.getTransaction().begin();
