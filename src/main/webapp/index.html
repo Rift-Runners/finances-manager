@@ -13,7 +13,18 @@
         <!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER -->
         <!-- https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson -->
         <div class="expanded row">
-            <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns">
+            <div class="medium-12 columns">
+                <p>Choose type</p>
+                <div class="switch large">
+                    <input  ng-init="transaction.type = false" ng-model="transaction.type" class="switch-input" id="yes-no" type="checkbox" name="transactionType">
+                    <label class="switch-paddle" for="yes-no">
+                        <span class="show-for-sr">Choose type</span>
+                        <span class="switch-active" aria-hidden="true">Debit</span>
+                        <span class="switch-inactive" aria-hidden="true">Credit</span>
+                    </label>
+                </div>
+            </div>     
+            <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns" ng-if="!transaction.type">
                 <h2>Credit</h2>
                 <form>
                     <div class="expanded row">
@@ -37,7 +48,7 @@
                     </div>
                 </form>
             </div>
-            <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns">
+            <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns" ng-if="transaction.type">
                 <h2>Debit</h2>
                 <form name="debitForm">
                     <div class="expanded row">
@@ -102,7 +113,7 @@
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject.name}}</td>
                             <td>{{finance.type}}</td>
-                            <td>{{finance.financeValue | currency}}</td>
+                            <td>{{finance.financeValue| currency}}</td>
                             <td>{{finance.paid}}</td>
                             <td>-</td>
                         </tr>
