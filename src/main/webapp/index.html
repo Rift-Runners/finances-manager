@@ -1,37 +1,34 @@
 <!DOCTYPE html>
-<html ng-app="financeApp">
+<html>
     <head>
         <title>Todo test</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
-
-        <!-- Compressed JavaScript -->
-        <script src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.foundation.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.foundation.min.css"/>
         <link rel="stylesheet" href="resources/todo.css">
     </head>
-    <body>
-<!--                <h2>Todo</h2>
-                <div ng-controller="TodoListController as todoList">
-                    <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-                    [ <a href="" ng-click="todoList.archive()">archive</a> ]
-                    <ul class="unstyled">
-                        <li ng-repeat="todo in todoList.todos">
-                            <label class="checkbox">
-                                <input type="checkbox" ng-model="todo.done">
-                                <span class="done-{{todo.done}}">{{todo.text}}</span>
-                            </label>
-                        </li>
-                    </ul>
-                    <form ng-submit="todoList.addTodo()">
-                        <input type="text" ng-model="todoList.todoText"  size="30"
-                               placeholder="add new todo here">
-                        <input class="btn-primary" type="submit" value="add">
-                    </form>
-                </div>-->
+    <body ng-app="financeApp">
+        <!--                <h2>Todo</h2>
+                        <div ng-controller="TodoListController as todoList">
+                            <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+                            [ <a href="" ng-click="todoList.archive()">archive</a> ]
+                            <ul class="unstyled">
+                                <li ng-repeat="todo in todoList.todos">
+                                    <label class="checkbox">
+                                        <input type="checkbox" ng-model="todo.done">
+                                        <span class="done-{{todo.done}}">{{todo.text}}</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <form ng-submit="todoList.addTodo()">
+                                <input type="text" ng-model="todoList.todoText"  size="30"
+                                       placeholder="add new todo here">
+                                <input class="btn-primary" type="submit" value="add">
+                            </form>
+                        </div>-->
 
-<!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER-->
-<!-- https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson -->
+        <!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER-->
+        <!-- https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson -->
         <div class="expanded row">
             <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns">
                 <h2>Credit</h2>
@@ -100,7 +97,7 @@
             </div>
             <div class="small-12 medium-12 large-12 columns">
                 <h2>Finances</h2>
-                <table ng-controller="FinancesController" id="example" class="display" cellspacing="0" width="100%">
+                <table ng-controller="FinancesListController" id="example" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -124,18 +121,23 @@
                 </table>
             </div>
         </div>
-
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-        <script type="text/javascript" src="resources/todo.js"></script>
+        
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.foundation.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
+        <script src="resources/scripts/app.js"></script>
+        <script src="resources/scripts/services.js"></script>
+        <script src="resources/scripts/controllers.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#example').DataTable();
-            });
+                                $(document).ready(function () {
+                                    $('#example').DataTable();
+                                });
         </script>
     </body>
 </html>

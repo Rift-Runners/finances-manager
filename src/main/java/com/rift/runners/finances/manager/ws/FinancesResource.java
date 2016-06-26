@@ -7,14 +7,13 @@ package com.rift.runners.finances.manager.ws;
 
 import com.rift.runners.finances.manager.entity.Finance;
 import com.rift.runners.finances.manager.service.FinanceService;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -24,9 +23,10 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/finances")
 public class FinancesResource {
-    
+
     @EJB
     private FinanceService financeService;
+
     /**
      * Creates a new instance of GenericResource
      */
@@ -40,11 +40,10 @@ public class FinancesResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/insertFinance")
-    public Finance insertFinance(Finance teste) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String insertFinance(Finance teste) {
         financeService.save(teste);
-        return teste;
+        return "Finance Inserted";
     }
 
     /**
@@ -53,10 +52,10 @@ public class FinancesResource {
      * @param zik representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */
-    @PUT
-    @Path("/{a}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(@PathParam("a") String zik) {
-        
+    @GET
+    @Path("/allFinances")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Finance> getFinances(){
+        return financeService.listAll();
     }
 }
