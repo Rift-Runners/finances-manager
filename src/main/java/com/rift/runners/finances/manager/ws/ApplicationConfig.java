@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.rift.runners.finances.manager.ws.FinancesResource.class);
+        resources.add(com.rift.runners.finances.manager.ws.SubjectsResource.class);
     }
     
 }

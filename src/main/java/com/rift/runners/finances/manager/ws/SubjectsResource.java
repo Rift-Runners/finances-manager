@@ -5,8 +5,8 @@
  */
 package com.rift.runners.finances.manager.ws;
 
-import com.rift.runners.finances.manager.entity.Finance;
-import com.rift.runners.finances.manager.service.FinanceService;
+import com.rift.runners.finances.manager.entity.Subject;
+import com.rift.runners.finances.manager.service.SubjectService;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Produces;
@@ -21,16 +21,16 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Guilherme
  */
-@Path("/finances")
-public class FinancesResource {
+@Path("/subjects")
+public class SubjectsResource {
 
     @EJB
-    private FinanceService financeService;
+    private SubjectService subjectService;
 
     /**
      * Creates a new instance of GenericResource
      */
-    public FinancesResource() {
+    public SubjectsResource() {
     }
 
     /**
@@ -41,9 +41,9 @@ public class FinancesResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String insertFinance(Finance teste) {
-        financeService.save(teste);
-        return "Finance Inserted";
+    public String insertSubject(Subject teste) {
+        subjectService.save(teste);
+        return "Subject Inserted";
     }
 
     /**
@@ -54,7 +54,7 @@ public class FinancesResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Finance> getFinances() {
-        return financeService.listAll();
+    public List<Subject> getFinances() {
+        return subjectService.listAll();
     }
 }

@@ -1,17 +1,23 @@
 var app = angular.module('financeApp.controllers', []);
 
+app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFactory', function (
+            $scope, FinancesFactory, SubjectsFactory) {
 
-app.controller('FinancesListController', ['$scope', 'FinancesFactory', function ($scope, FinancesFactory) {
         $scope.finances = FinancesFactory.query();
-    }]);
+        $scope.subjects = SubjectsFactory.query();
 
-//app.controller('FinancesListController', ['$scope', '', function ($scope) {
-//        $scope.finances = [
-//            {'name': 'Banana stuff', 'subject': 'food', 'type': 'debit',
-//                'value': '10,00', 'paid': 'NO'},
-//            {'name': 'Apple stuff', 'subject': 'food', 'type': 'debit',
-//                'value': '20,00', 'paid': 'NO'},
-//            {'name': 'Watermelon stuff', 'subject': 'food', 'type': 'debit',
-//                'value': '30,00', 'paid': 'YES'}
-//        ];
-//    }]);
+        $scope.saveFinance = function (finance) {
+            finance.type = 'Debit';
+            FinancesFactory.create(finance);
+            $scope.finances.push(angular.copy(finance));
+
+            delete $scope.finance;
+        };
+        
+        $scope.saveSubject = function (subject) {
+            SubjectsFactory.create(subject);
+            $scope.subjects.push(angular.copy(subject));
+
+            delete $scope.subject;
+        };
+    }]);

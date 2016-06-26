@@ -1,33 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="financeApp">
     <head>
         <title>Todo test</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.foundation.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.foundation.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css"/>        
         <link rel="stylesheet" href="resources/todo.css">
     </head>
-    <body ng-app="financeApp">
-        <!--                <h2>Todo</h2>
-                        <div ng-controller="TodoListController as todoList">
-                            <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-                            [ <a href="" ng-click="todoList.archive()">archive</a> ]
-                            <ul class="unstyled">
-                                <li ng-repeat="todo in todoList.todos">
-                                    <label class="checkbox">
-                                        <input type="checkbox" ng-model="todo.done">
-                                        <span class="done-{{todo.done}}">{{todo.text}}</span>
-                                    </label>
-                                </li>
-                            </ul>
-                            <form ng-submit="todoList.addTodo()">
-                                <input type="text" ng-model="todoList.todoText"  size="30"
-                                       placeholder="add new todo here">
-                                <input class="btn-primary" type="submit" value="add">
-                            </form>
-                        </div>-->
-
-        <!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER-->
+    <body ng-controller="FinancesController" >
+        <!-- OS DIVS DE CRÉDITO E DÉBITO IRÃO SE "ALTERNAR" COM UMA ANIMAÇÃO QUALQUER -->
         <!-- https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson -->
         <div class="expanded row">
             <div class="small-12 medium-offset-2 medium-3 large-offset-2 large-3 columns">
@@ -40,7 +23,7 @@
                             </label>
                         </div>
                         <div class="medium-12 columns">
-                            <label>Type <a style="border-radius: 20px;" class="success button">Add Type</a>
+                            <label>Subject <a style="border-radius: 20px;" class="success button">Add Subject</a>
                                 <select>
                                     <option value=""></option>
                                     <option value="Salary">Salary</option>
@@ -59,17 +42,19 @@
                 <form>
                     <div class="expanded row">
                         <div class="medium-12 columns">
-                            <label>Value
-                                <input type="text" placeholder="Debit Value">
+                            <label>Name
+                                <input ng-model="finance.name" type="text" placeholder="Name">
                             </label>
                         </div>
                         <div class="medium-12 columns">
-                            <label>Type <a style="border-radius: 20px;" class="success button">Add Type</a>
-                                <select>
-                                    <option value=""></option>
-                                    <option value="Food">Food</option>
-                                    <option value="Rent">Rent</option>
-                                    <option value="Gym">Gym</option>
+                            <label>Value
+                                <input ng-model="finance.financeValue" type="number" placeholder="Debit Value">
+                            </label>
+                        </div>
+                        <div class="medium-12 columns">
+                            <label>Subject <a style="border-radius: 20px;" href="#modal" class="success button">Add Subject</a>
+                                <select ng-options="subject.name for subject in subjects | orderBy: 'name'" ng-model="finance.subject">
+                                    <option value="">Pick a subject</option>
                                 </select>
                             </label>
                         </div>
@@ -81,7 +66,7 @@
                         <div class="medium-12 columns">
                             <p>Already Paid?</p>
                             <div class="switch large">
-                                <input class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
+                                <input  ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
                                 <label class="switch-paddle" for="yes-no">
                                     <span class="show-for-sr">Already Paid?</span>
                                     <span class="switch-active" aria-hidden="true">Yes</span>
@@ -90,14 +75,14 @@
                             </div>
                         </div>
                         <div class="medium-12 columns">
-                            <a class="expanded success hollow button" href="#">SAVE</a>
+                            <a class="expanded success hollow button" ng-click="saveFinance(finance)">SAVE</a>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="small-12 medium-12 large-12 columns">
                 <h2>Finances</h2>
-                <table ng-controller="FinancesListController" id="example" class="display" cellspacing="0" width="100%">
+                <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -113,32 +98,51 @@
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject}}</td>
                             <td>{{finance.type}}</td>
-                            <td>R$ {{finance.value}}</td>
+                            <td>R$ {{finance.financeValue}}</td>
                             <td>{{finance.paid}}</td>
                             <td>-</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="remodal-bg">
+                <div class="remodal" data-remodal-id="modal">
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                    <h1>Add Debit Subject</h1>
+                    <form>
+                        <div class="expanded row">
+                            <div class="medium-12 columns">
+                                <label>Name
+                                    <input ng-model="subject.name" type="text" placeholder="Name">
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+                    <button ng-click="saveSubject(subject)" data-remodal-action="confirm" class="remodal-confirm">Save</button>
+                </div>
+            </div>
         </div>
-        
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.foundation.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.foundation.min.js"></script>
+        <script>
+                                        $(function () {
+                                            $('#example').DataTable();
+                                        });
+        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
         <script src="resources/scripts/app.js"></script>
         <script src="resources/scripts/services.js"></script>
         <script src="resources/scripts/controllers.js"></script>
-        <script>
-                                $(document).ready(function () {
-                                    $('#example').DataTable();
-                                });
-        </script>
     </body>
 </html>
 
