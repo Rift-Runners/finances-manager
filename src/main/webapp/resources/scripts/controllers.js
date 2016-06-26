@@ -26,4 +26,10 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
             $scope.sortingDirection = !$scope.sortingDirection;
         };
 
+        $scope.isSelectedFinance = function (finances) {
+            return finances.some(function (finance) {
+                return finance.selected;
+            });
+        };
+
     }]);

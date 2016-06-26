@@ -97,12 +97,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
-                            <td><input type="checkbox" /></td>
+                        <tr ng-class="{'selecionado negrito': finance.selected}"  ng-repeat="finance in finances| filter:orderBy | orderBy:sortingRule:sortingDirection">
+                            <td><input type="checkbox" ng-model="finance.selected"/></td>
                             <td>{{finance.name}}</td>
                             <td>{{finance.subject.name}}</td>
                             <td>{{finance.type}}</td>
-                            <td>R$ {{finance.financeValue}}</td>
+                            <td>{{finance.financeValue | currency}}</td>
                             <td>{{finance.paid}}</td>
                             <td>-</td>
                         </tr>
@@ -143,6 +143,7 @@
         <script src="resources/scripts/app.js"></script>
         <script src="resources/scripts/services.js"></script>
         <script src="resources/scripts/controllers.js"></script>
+        <script src="resources/scripts/angular-locale_pt-br.js"></script>
     </body>
 </html>
 
