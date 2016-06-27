@@ -11,80 +11,9 @@
     </head>
     <body ng-controller="FinancesController" >
         <div class="expanded row">
-            <div class="small-12 medium-offset-4 medium-3 large-offset-4 large-3 columns buttonChoiceType">
-                <div class="switch large" ng-model="transaction.type" name="transactionType">
-                    <button ng-init="transaction.type = true" ng-class="{'buttonSelected': transaction.type}" class="success hollow button buttonDebitCredit" ng-click="transaction.type = true" ng-disabled="transaction.type"/>Debit</button>
-                    <button ng-class="{'buttonSelected': !transaction.type}" class="success hollow button buttonDebitCredit" ng-click="transaction.type = credit" ng-disabled="!transaction.type"/>Credit</button>
-                </div>
-            </div>
-            <div class="small-12 medium-offset-4 medium-3 large-offset-4 large-3 columns" ng-if="!transaction.type">
-                <h2>Credit</h2>
-                <form>
-                    <div class="expanded row">
-                        <div class="medium-12 columns">
-                            <label>Value
-                                <input type="text" placeholder="Credit Value">
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <label>Subject <a style="border-radius: 20px;" class="success button">Add Subject</a>
-                                <select>
-                                    <option value=""></option>
-                                    <option value="Salary">Salary</option>
-                                    <option value="Beach house rent">Beach house rent</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <a class="expanded success hollow button" href="#">SAVE</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="small-12 medium-offset-4 medium-3 large-offset-4 large-3 columns" ng-if="transaction.type">
-                <h2>Debit</h2>
-                <form name="debitForm">
-                    <div class="expanded row">
-                        <div class="medium-12 columns">
-                            <label>Name
-                                <input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <label>Value
-                                <input ng-model="finance.financeValue" type="number" placeholder="Debit Value" ng-required="true">
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <label>Subject <a style="border-radius: 20px;" href="#modal" class="success button">Add Subject</a>
-                                <select ng-options="subject.name for subject in subjects| orderBy: 'name'" ng-model="finance.subject" ng-required="true">
-                                    <option value="">Pick a subject</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <label>Payable until
-                                <input type="date" ng-required="true">
-                            </label>
-                        </div>
-                        <div class="medium-12 columns">
-                            <p>Already Paid?</p>
-                            <div class="switch large">
-                                <input ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
-                                <label class="switch-paddle" for="yes-no">
-                                    <span class="show-for-sr">Already Paid?</span>
-                                    <span class="switch-active" aria-hidden="true">Yes</span>
-                                    <span class="switch-inactive" aria-hidden="true">No</span>
-                                </label>
-                            </div>
-                        </div>     
-                    </div>
-                    <div class="medium-12 columns">
-                        <button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
-                    </div>
-                </form>
-            </div>
-
+			<div class="small-12 medium-12 large-12 columns">
+				<a style="border-radius: 20px;" href="#modalFinance" class="success button">Add Finance</a>
+			</div>
             <div class="small-12 medium-12 large-12 columns">
                 <h2>Finances</h2>
                 <input type="text" ng-model="searchCriteria" placeholder="Search"/>
@@ -115,7 +44,7 @@
             </div>
 
             <div class="remodal-bg">
-                <div class="remodal" data-remodal-id="modal">
+                <div class="remodal" data-remodal-id="modalSubject">
                     <button data-remodal-action="close" class="remodal-close"></button>
                     <h1>Add Debit Subject</h1>
                     <form>
@@ -130,6 +59,84 @@
                     <br>
                     <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
                     <button ng-click="saveSubject(subject)" data-remodal-action="confirm" class="remodal-confirm">Save</button>
+                </div>
+				<div class="remodal" data-remodal-id="modalFinance">
+				<button data-remodal-action="close" class="remodal-close"></button>
+					<div class="expanded row">
+						<div class="small-12 medium-12 large-12 columns buttonChoiceType">
+							<div class="switch large" ng-model="transaction.type" name="transactionType">
+								<button ng-init="transaction.type = true" ng-class="{'buttonSelected': transaction.type}" class="success hollow button buttonDebitCredit" ng-click="transaction.type = true" ng-disabled="transaction.type"/>Debit</button>
+								<button ng-class="{'buttonSelected': !transaction.type}" class="success hollow button buttonDebitCredit" ng-click="transaction.type = credit" ng-disabled="!transaction.type"/>Credit</button>
+							</div>
+						</div>
+						<div class="small-12 medium-12 large-12 columns" ng-if="!transaction.type">
+							<h2>Credit</h2>
+							<form>
+								<div class="expanded row">
+									<div class="medium-12 columns">
+										<label>Value
+											<input type="text" placeholder="Credit Value">
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<label>Subject <a style="border-radius: 20px;" class="success button">Add Subject</a>
+											<select>
+												<option value=""></option>
+												<option value="Salary">Salary</option>
+												<option value="Beach house rent">Beach house rent</option>
+											</select>
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<a class="expanded success hollow button" href="#">SAVE</a>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="small-12 medium-12 large-12 columns" ng-if="transaction.type">
+							<h2>Debit</h2>
+							<form name="debitForm">
+								<div class="expanded row">
+									<div class="medium-12 columns">
+										<label>Name
+											<input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<label>Value
+											<input ng-model="finance.financeValue" type="number" placeholder="Debit Value" ng-required="true">
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<label>Subject <a style="border-radius: 20px;" href="#modalSubject" class="success button">Add Subject</a>
+											<select ng-options="subject.name for subject in subjects| orderBy: 'name'" ng-model="finance.subject" ng-required="true">
+												<option value="">Pick a subject</option>
+											</select>
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<label>Payable until
+											<input type="date" ng-required="true">
+										</label>
+									</div>
+									<div class="medium-12 columns">
+										<p>Already Paid?</p>
+										<div class="switch large">
+											<input ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
+											<label class="switch-paddle" for="yes-no">
+												<span class="show-for-sr">Already Paid?</span>
+												<span class="switch-active" aria-hidden="true">Yes</span>
+												<span class="switch-inactive" aria-hidden="true">No</span>
+											</label>
+										</div>
+									</div>     
+								</div>
+								<div class="medium-12 columns">
+									<button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
+								</div>
+							</form>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
