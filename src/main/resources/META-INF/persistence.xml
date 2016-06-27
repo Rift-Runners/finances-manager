@@ -5,7 +5,8 @@
     <persistence-unit name="financesPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.rift.runners.finances.manager.entity.Subject</class>
-        <class>com.rift.runners.finances.manager.entity.Finance</class>
+        <class>com.rift.runners.finances.manager.entity.Credit</class>
+        <class>com.rift.runners.finances.manager.entity.Debit</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />

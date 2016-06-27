@@ -7,32 +7,21 @@ package com.rift.runners.finances.manager.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.MappedSuperclass;
 
 /**
  *
  * @author Guilherme
  */
-@Entity
-@Table(name = "finances")
-@XmlRootElement
+@MappedSuperclass
 public class Finance implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_finance")
-    private Long id;
+	
+    @Column(length = 50, nullable = false)
     private String name;
     @ManyToOne
     @JoinColumn(name = "id_subject")
@@ -40,26 +29,15 @@ public class Finance implements Serializable {
     private String type;
     @Column(name = "finance_value")
     private Double financeValue;
-    private Boolean paid;
 
     public Finance() {
     }
 
-    public Finance(Long id, String name, Subject subject, String type, Double financeValue, Boolean paid) {
-        this.id = id;
+    public Finance(String name, Subject subject, String type, Double financeValue) {
         this.name = name;
         this.subject = subject;
         this.type = type;
         this.financeValue = financeValue;
-        this.paid = paid;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -94,23 +72,13 @@ public class Finance implements Serializable {
         this.financeValue = financeValue;
     }
 
-    public Boolean getPaid() {
-        return paid;
-    }
-
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.name);
-        hash = 41 * hash + Objects.hashCode(this.subject);
-        hash = 41 * hash + Objects.hashCode(this.type);
-        hash = 41 * hash + Objects.hashCode(this.financeValue);
-        hash = 41 * hash + Objects.hashCode(this.paid);
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.subject);
+        hash = 13 * hash + Objects.hashCode(this.type);
+        hash = 13 * hash + Objects.hashCode(this.financeValue);
         return hash;
     }
 
@@ -132,16 +100,10 @@ public class Finance implements Serializable {
         if (!Objects.equals(this.type, other.type)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
         if (!Objects.equals(this.subject, other.subject)) {
             return false;
         }
         if (!Objects.equals(this.financeValue, other.financeValue)) {
-            return false;
-        }
-        if (!Objects.equals(this.paid, other.paid)) {
             return false;
         }
         return true;
