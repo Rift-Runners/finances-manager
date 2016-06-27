@@ -11,9 +11,8 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
             FinancesFactory.create(finance);
             $scope.finances.push(angular.copy(finance));
             
-            $scope.transaction.type = false;
-            $scope.transaction.type = true;
             delete $scope.finance;
+            window.location.reload();
         };
 
         $scope.saveSubject = function (subject) {
