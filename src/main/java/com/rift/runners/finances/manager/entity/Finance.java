@@ -149,5 +149,8 @@ public class Finance implements Serializable {
         }
         return true;
     }
-
+    @Override
+    public String toString() {
+        return "Finance{" + "id=" + id + ", name=" + name + ", subject=" + subject + ", type=" + type + ", financeValue=" + financeValue + ", paid=" + paid + '}';
+    }
 }

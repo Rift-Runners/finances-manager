@@ -34,10 +34,25 @@ public class FinanceService {
         em.close();
     }
 
+    public void edit(Finance finance) {
+        final EntityManager em = emf.createManager();
+        em.getTransaction().begin();
+        em.merge(finance);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void delete(Finance finance) {
+        emf.createManager().remove(finance);
+    }
+    
+    public Finance find(Finance finance) {
+        return emf.createManager().find(Finance.class, finance.getId());
+    }
+
     public List<Finance> listAll() {
         final EntityManager em = emf.createManager();
         final List<Finance> allFinances = em.createQuery(("FROM " + Finance.class.getName())).getResultList();
         return allFinances;
     }
-
 }

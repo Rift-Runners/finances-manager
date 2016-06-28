@@ -11,8 +11,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
@@ -42,10 +44,8 @@ public class FinancesResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String insertFinance(Finance finance) {
+    public void insertFinance(Finance finance) {
         financeService.save(finance);
-        return "Finance Inserted";
     }
 
     /**
@@ -57,6 +57,19 @@ public class FinancesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Finance> getFinances() {
         return financeService.listAll();
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void editFinance(Finance finance) {
+        financeService.edit(finance);
+    }
+    
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteFinance(Finance finance) {
+        financeService.delete(financeService.find(finance));
     }
 
 }

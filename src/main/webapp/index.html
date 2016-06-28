@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.foundation.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css"/>
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,900' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Cinzel:400,900,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="resources/todo.css">
@@ -21,24 +22,26 @@
                 <table ng-show="finances.length > 0" class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
                             <th><a href="" ng-click="orderByField('name')">Name</a></th>
                             <th><a href="" ng-click="orderByField('subject.name')">Subject</a></th> <!-- Group that it belongs (in its respective type) -->
                             <th><a href="" ng-click="orderByField('type')">Type</a></th> <!-- Credit/Debit -->
                             <th><a href="" ng-click="orderByField('financeValue')">Value</a></th>
                             <th><a href="" ng-click="orderByField('paid')">Paid</a></th> <!-- If the Debit is already paid (YES/NO)-->
                             <th>File</th> <!-- If it has a file associated with it -->            
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-class="{'selected-finance': finance.selected}"  ng-repeat="finance in finances| filter: searchCriteria | orderBy:sortingRule:sortingDirection">
-                            <td><input type="checkbox" ng-model="finance.selected"/></td>
-                            <td>{{finance.name}}</td>
-                            <td>{{finance.subject.name}}</td>
-                            <td>{{finance.type}}</td>
-                            <td>{{finance.financeValue| currency}}</td>
-                            <td>{{finance.paid}}</td>
+                        <tr ng-repeat="fin in finances| filter: searchCriteria | orderBy:sortingRule:sortingDirection">
+                            <td>{{fin.name}}</td>
+                            <td>{{fin.subject.name}}</td>
+                            <td>{{fin.type}}</td>
+                            <td>{{fin.financeValue| currency}}</td>
+                            <td>{{fin.paid}}</td>
                             <td>-</td>
+                            <td><a ng-click="setEditableFinance(fin)" ng-href="{{(fin.type == 'Credit') ? '#modalEditCredit':'#modalEditDebit'}}" class="table-icon"><i class="fi-pencil"></i></a></td>
+                            <td><a ng-click="deleteFinance(fin)" class="table-icon"><i class="fi-trash"></i></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,7 +85,7 @@
                             </div>
                         </div>
 
-                        <!-- Modal Credit -->
+                        <!-- Modal Add Credit -->
                         <div class="small-12 medium-12 large-12 columns" ng-if="!transaction.type">
                             <p class="title">Credit</p>
                             <form name="creditForm">
@@ -94,7 +97,7 @@
                                     </div>
                                     <div class="medium-12 columns">
                                         <label class="form-field">Value
-                                            <input ng-model="finance.financedValue" type="text" placeholder="Credit Value" ng-required="true">
+                                            <input ng-model="finance.financeValue" type="number" placeholder="Credit Value" ng-required="true">
                                         </label>
                                     </div>
                                     <div class="medium-12 columns">
@@ -106,13 +109,13 @@
                                     </div>
                                     <div class="medium-12 columns">
                                         <button data-remodal-action="cancel" class="remodal-cancel form-button">Cancel</button>
-                                        <button ng-disabled="creditForm.$invalid" ng-click="saveFinance(finance)" class="remodal-confirm form-button">Save</button>
+                                        <button ng-disabled="creditForm.$invalid" ng-click="saveCredit(finance)" class="remodal-confirm form-button">Save</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
-                        <!-- Modal Debit -->
+                        <!-- Modal Add Debit -->
                         <div class="small-12 medium-12 large-12 columns" ng-if="transaction.type">
                             <p class="title">Debit</p>
                             <form name="debitForm">
@@ -155,14 +158,95 @@
                                 </div>
                                 <div class="medium-12 columns">
                                     <button data-remodal-action="cancel" class="remodal-cancel form-button">Cancel</button>
-                                    <button ng-disabled="debitForm.$invalid" ng-click="saveFinance(finance)" class="remodal-confirm form-button">Save</button>
+                                    <button ng-disabled="debitForm.$invalid" ng-click="saveDebit(finance)" class="remodal-confirm form-button">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal Edit Credit -->
+                    <div class="remodal modal-custom" data-remodal-id="modalEditCredit">
+                        <div class="small-12 medium-12 large-12 columns">
+                            <p class="title">Credit</p>
+                            <form name="creditForm">
+                                <div class="expanded row">
+                                    <div class="small-12 medium-12 large-12 columns">
+                                        <label class="form-field">Name
+                                            <input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <label class="form-field">Value
+                                            <input ng-model="finance.financeValue" type="number" placeholder="Credit Value" ng-required="true">
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <label class="form-field">Subject
+                                            <select ng-model="finance.subject" ng-options="subject.name for subject in subjects| orderBy: 'name'" ng-model="finance.subject" ng-required="true">
+                                                <option value="">Pick a subject</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <button data-remodal-action="cancel" class="remodal-cancel form-button">Cancel</button>
+                                        <button ng-disabled="creditForm.$invalid" ng-click="editFinance(finance)" class="remodal-confirm form-button">Edit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal Edit Debit -->
+                    <div class="remodal modal-custom" data-remodal-id="modalEditDebit">
+                        <div class="small-12 medium-12 large-12 columns">
+                            <p class="title">Debit</p>
+                            <form name="debitForm">
+                                <div class="expanded row">
+                                    <div class="small-12 medium-12 large-12 columns fieldsCustom">
+                                        <label class="form-field">Name
+                                            <input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <label class="form-field">Value
+                                            <input ng-model="finance.financeValue" type="number" placeholder="Debit Value" ng-required="true">
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <label class="form-field">Subject
+                                            <select ng-init="finance.subject" ng-options="subject.name for subject in subjects | orderBy: 'name'" ng-model="finance.subject" ng-required="true">
+                                                <option value="">Pick a subject</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="medium-12 columns">
+                                        <label class="form-field">Payable until
+                                            <input type="date" ng-required="true">
+                                        </label>
+                                    </div>
+                                    <div class="medium-4 columns">
+                                        <p class="form-field">Already Paid?</p>
+                                    </div>
+                                    <div class="medium-8 columns">
+                                        <div class="switch large" style="float: left;">
+                                            <input ng-init="finance.paid = false" ng-model="finance.paid" class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch">
+                                            <label class="switch-paddle" for="yes-no">
+                                                <span class="show-for-sr">Already Paid?</span>
+                                                <span class="switch-active" aria-hidden="true">Yes</span>
+                                                <span class="switch-inactive" aria-hidden="true">No</span>
+                                            </label>
+                                        </div>
+                                    </div>     
+                                </div>
+                                <div class="medium-12 columns">
+                                    <button data-remodal-action="cancel" class="remodal-cancel form-button">Cancel</button>
+                                    <button ng-disabled="debitForm.$invalid" ng-click="editFinance(finance)" class="remodal-confirm form-button">Edit</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>

@@ -14,11 +14,6 @@ body{
     color: grey;
 }
 
-.selected-finance {
-    background-color: #3adb76;
-    font-weight: bold;
-}
-
 .button-selected {
     background-color: tomato !important;
     color: black !important;
@@ -41,4 +36,9 @@ body{
 .form-field {
     text-align: left;
     font-size: 18px;
+}
+
+.table-icon{
+    font-size: 22px;
+    color: black;
 }

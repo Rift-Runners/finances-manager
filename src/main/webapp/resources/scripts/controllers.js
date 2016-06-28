@@ -5,11 +5,41 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
 
         $scope.finances = FinancesFactory.query();
         $scope.subjects = SubjectsFactory.query();
+        $scope.finance;
         
-        $scope.saveFinance = function (finance) {
+        $scope.saveDebit = function (finance) {
             finance.type = 'Debit';
             FinancesFactory.create(finance);
             $scope.finances.push(angular.copy(finance));
+
+            delete $scope.finance;
+            window.location.reload();
+        };
+        
+        $scope.saveCredit = function (finance) {
+            finance.type = 'Credit';
+            FinancesFactory.create(finance);
+            $scope.finances.push(angular.copy(finance));
+
+            delete $scope.finance;
+            window.location.reload();
+        };
+        
+        $scope.setEditableFinance = function (finance){
+            $scope.finance = finance;
+        };
+        
+        $scope.editFinance = function (finance) {
+            FinancesFactory.edit(finance);
+
+            delete $scope.finance;
+            window.location.reload();
+        };
+        
+        $scope.deleteFinance = function (finance) {
+            console.log(finance);
+            FinancesFactory.delete(finance);
+            //$scope.finance = null;
             
             delete $scope.finance;
             window.location.reload();
@@ -20,6 +50,7 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
             $scope.subjects.push(angular.copy(subject));
 
             delete $scope.subject;
+            window.location.reload();
         };
 
         $scope.orderByField = function (field) {
@@ -32,5 +63,4 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
                 return finance.selected;
             });
         };
-
     }]);
