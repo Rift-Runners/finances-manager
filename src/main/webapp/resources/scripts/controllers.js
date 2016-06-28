@@ -6,7 +6,7 @@ app.controller('FinancesController', ['$scope', 'FinancesFactory', 'SubjectsFact
         $scope.finances = FinancesFactory.query();
         $scope.subjects = SubjectsFactory.query();
         
-        $scope.saveFinance = function (finance) {
+        $scope.saveDebit = function (finance) {
             finance.type = 'Debit';
             FinancesFactory.create(finance);
             $scope.finances.push(angular.copy(finance));

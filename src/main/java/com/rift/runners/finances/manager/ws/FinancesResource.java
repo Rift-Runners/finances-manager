@@ -41,9 +41,9 @@ public class FinancesResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String insertFinance(Finance teste) {
-        financeService.save(teste);
-        return "Finance Inserted";
+    public String insertFinance(Finance finance) {
+        financeService.save(finance);
+        return "Debit Inserted";
     }
 
     /**

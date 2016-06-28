@@ -10,12 +10,14 @@ import com.rift.runners.finances.manager.util.EMFactory;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Guilherme
  */
 @Stateless
+@XmlRootElement
 public class FinanceService {
 
     private final EMFactory emf = EMFactory.getInstance();
