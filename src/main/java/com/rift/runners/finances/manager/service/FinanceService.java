@@ -13,8 +13,8 @@ import javax.persistence.EntityManager;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Guilherme
+ * @author Diego Peixoto
+ * @author Guilherme Matuella
  */
 @Stateless
 @XmlRootElement
@@ -39,4 +39,5 @@ public class FinanceService {
         final List<Finance> allFinances = em.createQuery(("FROM " + Finance.class.getName())).getResultList();
         return allFinances;
     }
+
 }

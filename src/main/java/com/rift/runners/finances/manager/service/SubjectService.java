@@ -12,8 +12,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
 /**
- *
- * @author Guilherme
+ * @author Diego Peixoto
+ * @author Guilherme Matuella
  */
 @Stateless
 public class SubjectService {
@@ -37,4 +37,5 @@ public class SubjectService {
         final List<Subject> allSubjects = em.createQuery(("FROM " + Subject.class.getName())).getResultList();
         return allSubjects;
     }
+
 }

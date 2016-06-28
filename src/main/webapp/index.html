@@ -11,11 +11,10 @@
     </head>
     <body ng-controller="FinancesController" >
         <div class="expanded row">
-            <div class="small-12 medium-12 large-12 columns">
-                <a style="border-radius: 20px;" href="#modalFinance" class="success button">Add Finance</a>
-            </div>
-            <div class="small-12 medium-12 large-12 columns">
-                <h2>Finances</h2>
+
+            <!-- Body table finances -->
+            <div class="small-12 medium-12 large-12 columns myFinancesDiv">
+                <h2>My Finances</h2>
                 <input type="text" ng-model="searchCriteria" placeholder="Search"/>
                 <table ng-show="finances.length > 0" class="table table-striped">
                     <thead>
@@ -43,7 +42,15 @@
                 </table>
             </div>
 
+            <!-- Button Add Finances -->
+            <div class="small-12 medium-12 large-12 columns">
+                <a style="border-radius: 20px;" href="#modalFinance" class="success button">Add Finance</a>
+            </div>
+
+            <!-- Div modal Debit, Credit and Subject -->
             <div class="remodal-bg">
+
+                <!-- Modal Add Subject -->
                 <div class="remodal" data-remodal-id="modalSubject">
                     <button data-remodal-action="close" class="remodal-close"></button>
                     <h1>Add Debit Subject</h1>
@@ -60,7 +67,9 @@
                     <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
                     <button ng-click="saveSubject(subject)" data-remodal-action="confirm" class="remodal-confirm">Save</button>
                 </div>
-                <div class="remodal" data-remodal-id="modalFinance">
+
+                <!-- Modal Add Finances -->
+                <div class="remodal modalCustom" data-remodal-id="modalFinance">
                     <button data-remodal-action="close" class="remodal-close"></button>
                     <div class="expanded row">
                         <div class="small-12 medium-12 large-12 columns buttonChoiceType">
@@ -69,6 +78,8 @@
                                 <button ng-class="{'buttonSelected': !transaction.type}" class="success hollow button buttonDebitCredit" ng-click="transaction.type = credit" ng-disabled="!transaction.type"/>Credit</button>
                             </div>
                         </div>
+
+                        <!-- Modal Credit -->
                         <div class="small-12 medium-12 large-12 columns" ng-if="!transaction.type">
                             <h2>Credit</h2>
                             <form>
@@ -93,11 +104,13 @@
                                 </div>
                             </form>
                         </div>
+
+                        <!-- Modal Debit -->
                         <div class="small-12 medium-12 large-12 columns" ng-if="transaction.type">
                             <h2>Debit</h2>
                             <form name="debitForm">
                                 <div class="expanded row">
-                                    <div class="medium-12 columns">
+                                    <div class="small-12 medium-12 large-12 columns fieldsCustom">
                                         <label>Name
                                             <input ng-model="finance.name" type="text" placeholder="Name" ng-required="true">
                                         </label>
@@ -132,13 +145,15 @@
                                     </div>     
                                 </div>
                                 <div class="medium-12 columns">
-                                    <button class="expanded success hollow button" ng-click="saveDebit(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
+                                    <button class="expanded success hollow button" ng-click="saveFinance(finance)" ng-disabled="debitForm.$invalid"/>SAVE</button>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>

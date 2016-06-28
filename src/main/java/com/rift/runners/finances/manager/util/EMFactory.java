@@ -10,8 +10,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
- * @author Guilherme
+ * @author Diego Peixoto
+ * @author Guilherme Matuella
  */
 public final class EMFactory {
 
@@ -24,11 +24,11 @@ public final class EMFactory {
         }
         return instance;
     }
-    
+
     private EMFactory() {
         this.factory = Persistence.createEntityManagerFactory("financesPU");
     }
-    
+
     private static synchronized void inicializaInstancia() {
         if (instance == null) {
             instance = new EMFactory();
@@ -38,4 +38,5 @@ public final class EMFactory {
     public EntityManager createManager() {
         return factory.createEntityManager();
     }
+
 }

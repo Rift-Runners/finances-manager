@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author Guilherme
+ * @author Diego Peixoto
+ * @author Guilherme Matuella
  */
 @Entity
 @Table(name = "subjects")
@@ -84,4 +84,5 @@ public class Subject implements Serializable {
         }
         return true;
     }
+
 }

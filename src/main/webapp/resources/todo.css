@@ -22,3 +22,16 @@
     background-color: tomato !important;
     color: black !important;
 }
+
+.myFinancesDiv {
+    margin-top: 4%;
+}
+
+.modalCustom {
+    border-style: groove;
+    width: 30%;
+}
+
+.fieldsCustom {
+    text-align: left;
+}

@@ -19,7 +19,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * REST Web Service
  *
- * @author Guilherme
+ * @author Diego Peixoto
+ * @author Guilherme Matuella
  */
 @Path("/finances")
 public class FinancesResource {
@@ -36,6 +37,7 @@ public class FinancesResource {
     /**
      * Retrieves representation of an instance of resumer.FinancesResource
      *
+     * @param finance
      * @return an instance of java.lang.String
      */
     @POST
@@ -43,13 +45,12 @@ public class FinancesResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String insertFinance(Finance finance) {
         financeService.save(finance);
-        return "Debit Inserted";
+        return "Finance Inserted";
     }
 
     /**
      * PUT method for updating or creating an instance of FinancesResource
      *
-     * @param zik representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */
     @GET
@@ -57,4 +58,5 @@ public class FinancesResource {
     public List<Finance> getFinances() {
         return financeService.listAll();
     }
+
 }
