@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
@@ -73,74 +74,16 @@ public class FinancesResource {
     @GET
     @Path("/getAsPdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getFinancesAsPdf() throws IOException {
-        String jsonDoc1 = "[  {\n"
-                + "    \"financeValue\": 12323,\n"
-                + "    \"id\": 1,\n"
-                + "    \"name\": \"EDItouasjdjasdjhhh\",\n"
-                + "    \"paid\": true,\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 2,\n"
-                + "      \"name\": \"teste\"\n"
-                + "    },\n"
-                + "    \"type\": \"Debit\"\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"id\": 2,\n"
-                + "    \"name\": \"Test\",\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 1,\n"
-                + "      \"name\": \"1212\"\n"
-                + "    },\n"
-                + "    \"type\": \"Debit\"\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"financeValue\": 122,\n"
-                + "    \"id\": 3,\n"
-                + "    \"name\": \"Debit\",\n"
-                + "    \"paid\": false,\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 1,\n"
-                + "      \"name\": \"1212\"\n"
-                + "    },\n"
-                + "    \"type\": \"Debit\"\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"id\": 4,\n"
-                + "    \"name\": \"Credit\",\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 1,\n"
-                + "      \"name\": \"1212\"\n"
-                + "    },\n"
-                + "    \"type\": \"Credit\"\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"financeValue\": 23,\n"
-                + "    \"id\": 5,\n"
-                + "    \"name\": \"Aeee\",\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 1,\n"
-                + "      \"name\": \"1212\"\n"
-                + "    },\n"
-                + "    \"type\": \"Credit\"\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"financeValue\": 123,\n"
-                + "    \"id\": 6,\n"
-                + "    \"name\": \"sim\",\n"
-                + "    \"paid\": true,\n"
-                + "    \"subject\": {\n"
-                + "      \"id\": 4,\n"
-                + "      \"name\": \"aeho\"\n"
-                + "    },\n"
-                + "    \"type\": \"Debit\"\n"
-                + "  }]";
-
-        List<String> lines = Arrays.asList("The first line", "The second line");
-        java.nio.file.Path file = Paths.get("C:/Users/Guilherme/Desktop/out.txt");
+    public Response getFinancesAsPdf(String allFinances) throws IOException {
+        final List<String> lines = new ArrayList();
+        financeService.listAll().stream().forEach((finance) -> {
+            lines.add(finance.toString()+"\n");
+        });
+        
+        java.nio.file.Path file = Paths.get("C:/Users/631420063/Desktop/out.txt");
         Files.write(file, lines, Charset.forName("UTF-8"));
         
-        return Response.ok(new File("C:/Users/Guilherme/Desktop/out.txt"), MediaType.APPLICATION_OCTET_STREAM).
+        return Response.ok(new File("C:/Users/631420063/Desktop/out.txt"), MediaType.APPLICATION_OCTET_STREAM).
                 header("Content-Disposition", "attachment; filename=\"finances.txt\"")
                 .build();
     }

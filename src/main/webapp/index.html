@@ -3,7 +3,6 @@
     <head>
         <title>Todo test</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.foundation.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css"/>
@@ -13,7 +12,6 @@
     </head>
     <body ng-controller="FinancesController" >
         <div class="expanded row">
-
             <!-- Body table finances -->
             <div class="small-12 medium-12 large-12 columns margin-top4pc">
                 <p class="title">MY FINANCES</p>
@@ -21,24 +19,24 @@
                 <table ng-show="finances.length > 0" class="table table-striped">
                     <thead>
                         <tr>
-                            <th><a href="" ng-click="orderByField('name')">Name</a></th>
-                            <th><a href="" ng-click="orderByField('subject.name')">Subject</a></th> <!-- Group that it belongs (in its respective type) -->
-                            <th><a href="" ng-click="orderByField('type')">Type</a></th> <!-- Credit/Debit -->
-                            <th><a href="" ng-click="orderByField('financeValue')">Value</a></th>
-                            <th><a href="" ng-click="orderByField('paid')">Paid</a></th> <!-- If the Debit is already paid (YES/NO)-->
-                            <th>File</th> <!-- If it has a file associated with it -->            
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th class="th-title"><a href="" ng-click="orderByField('name')">NAME</a></th>
+                            <th class="hide-for-small-only th-title"><a href="" ng-click="orderByField('subject.name')">SUBJECT</a></th> <!-- Group that it belongs (in its respective type) -->
+                            <th class="th-title"><a href="" ng-click="orderByField('type')">TYPE</a></th> <!-- Credit/Debit -->
+                            <th class="th-title"><a href="" ng-click="orderByField('financeValue')">VALUE</a></th>
+                            <th class="hide-for-small-only th-title"><a href="" ng-click="orderByField('paid')">PAID</a></th> <!-- If the Debit is already paid (YES/NO)-->
+                            <!--<th>File</th>  If it has a file associated with it -->            
+                            <th class="th-title">EDIT</th>
+                            <th class="th-title">DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="fin in finances| filter: searchCriteria | orderBy:sortingRule:sortingDirection">
                             <td>{{fin.name}}</td>
-                            <td>{{fin.subject.name}}</td>
+                            <td class="hide-for-small-only">{{fin.subject.name}}</td>
                             <td>{{fin.type}}</td>
                             <td>{{fin.financeValue| currency}}</td>
-                            <td>{{fin.paid}}</td>
-                            <td>-</td>
+                            <td class="hide-for-small-only">{{fin.paid}}</td>
+                            <!--<td>-</td>-->
                             <td><a ng-click="setEditableFinance(fin)" ng-href="{{(fin.type == 'Credit') ? '#modalEditCredit':'#modalEditDebit'}}" class="table-icon"><i class="fi-pencil"></i></a></td>
                             <td><a ng-click="deleteFinance(fin)" class="table-icon"><i class="fi-trash"></i></a></td>
                         </tr>
@@ -246,6 +244,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="small-12 medium-12 large-12 columns">
+                <a href="http://www.github.com/rift-runners/finances-manager" class="social-icon"><i class="fi-social-github"></i></a>
+                <a href="" class="social-icon"><i class="fi-social-facebook"></i></a>
+                <a href="" class="social-icon"><i class="fi-social-linkedin"></i></a>
+                <a href="" class="social-icon"><i class="fi-social-youtube"></i></a>
             </div>
         </div>
 
