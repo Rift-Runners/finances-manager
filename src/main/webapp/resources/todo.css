@@ -1,37 +1,44 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.title{
+    font-family: 'Cinzel', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+
 .done-true {
     text-decoration: line-through;
     color: grey;
 }
-.selected {
+
+.selected-finance {
     background-color: #3adb76;
-}
-.bold {
     font-weight: bold;
 }
 
-.buttonChoiceType {
-    margin-top: 4%;
-}
-
-.buttonDebitCredit {
-    width: 25%;
-    border-radius: 4%;
-}
-
-.buttonSelected {
+.button-selected {
     background-color: tomato !important;
     color: black !important;
 }
 
-.myFinancesDiv {
+.margin-top4pc {
     margin-top: 4%;
 }
 
-.modalCustom {
-    border-style: groove;
-    width: 30%;
+.modal-custom {
+    border: solid black 1px;
+    width: 40%;
 }
 
-.fieldsCustom {
+.form-button{
+    font-family: 'Cinzel', sans-serif;
+    font-size: 18px;
+}
+
+.form-field {
     text-align: left;
+    font-size: 18px;
 }
