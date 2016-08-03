@@ -24,6 +24,9 @@
 ## Running the project
 
 1) Download Gradle
+
 2) By CLI: Go into the cloned repository root folder
+
 3) run the command: gradle build clean
+
 4) then: gradle jettyRunWar
