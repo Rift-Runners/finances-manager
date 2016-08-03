@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/Rift-Runners/finances-manager.svg?style=svg)](https://circleci.com/gh/Rift-Runners/finances-manager)
+
 # Finances Manager
 
 - Project with the objective of creating a responsive, clean and simple finances manager;
